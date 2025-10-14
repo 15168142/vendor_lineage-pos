@@ -141,6 +141,9 @@ $(call enforce-product-packages-exist-internal,$(lastword $(_include_stack)),pro
 endif
 endif
 
+# Disable dexpreopt minidebuginfo
+WITH_DEXPREOPT_DEBUG_INFO := false
+
 # Bootanimation
 TARGET_SCREEN_WIDTH ?= 1080
 TARGET_SCREEN_HEIGHT ?= 1920
