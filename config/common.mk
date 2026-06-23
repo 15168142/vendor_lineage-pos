@@ -50,6 +50,10 @@ PRODUCT_PRODUCT_PROPERTIES += persist.sys.strictmode.disable=true
 PRODUCT_PRODUCT_PROPERTIES += log.tag=I
 endif
 
+# Enable background blur for widget picker
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.launcher.depth.widget=true
+
 # Backup Tool
 PRODUCT_COPY_FILES += \
     vendor/lineage/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
