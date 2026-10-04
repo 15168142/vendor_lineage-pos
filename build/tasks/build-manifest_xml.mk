@@ -1,4 +1,4 @@
-# Copyright (C) 2019-2020 The LineageOS Project
+# Copyright (C) 2023-2025 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, vendor/lineage/config/common_car.mk)
+ifdef MANIFEST_EXCLUDES
+MANIFEST_EXCLUDES := |$(MANIFEST_EXCLUDES)
+endif
 
-EMULATOR_VENDOR_NO_SENSORS := true
-EMULATOR_VENDOR_NO_SOUND := true
+$(INSTALLED_BUILD_MANIFEST_XML_TARGET):
+	mkdir -p $(dir $@)
+	REPO_TRACE=0 python3 .repo/repo/repo manifest -o - -r | grep -Ev "proprietary_$(MANIFEST_EXCLUDES)" > $@
 
-# Allow building otatools
-TARGET_FORCE_OTA_PACKAGE := true
-
-# Disable soong defined system image for now
-USE_SOONG_DEFINED_SYSTEM_IMAGE := false
+.PHONY: build-manifest.xml
+build-manifest.xml: $(INSTALLED_BUILD_MANIFEST_XML_TARGET)
